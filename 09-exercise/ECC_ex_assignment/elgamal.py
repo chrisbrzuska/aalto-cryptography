@@ -107,8 +107,8 @@ class ElGamal(object):
         Exercise 2:
         
         Implement the logic to randomize the generated elliptic curve points R and S. 
-        This can be implemented by involve multiplying or negating the points based randomly
-        on a coin flip, so that R and S remain on the elliptic curve.
+        This can be implemented by multiplying or negating the points based on the result of
+        a coinflip, so that R and S remain on the elliptic curve.
         """
         # Hardcoded points for point blinding countermeasure:
         
