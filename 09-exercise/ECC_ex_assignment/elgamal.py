@@ -96,25 +96,6 @@ class ElGamal(object):
         """
         pass
 
-    def randomize_key(self, sk):
-        """Randomizes secret key.
-        
-        Parameters:
-        - sk: a secret key
-        
-        Returns:
-        - A randomized key
-        
-        TODO:
-        Exercise 1:
-        
-        Implement the method logic to properly randomize a secret key.
-        
-        This method should ensure that the key is securely randomized according to the
-        lecture notes.
-        """
-        pass
-
     def random_ec_points(self):
         """Generates random elliptic curve points for point blinding countermeasure.
 
