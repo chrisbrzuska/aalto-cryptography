@@ -202,4 +202,4 @@ class ElGamal(object):
         blind_c1 = self.blind_ciphertext(c1, R)
         unblind_c1 = self.unblind_ciphertext(blind_c1, S, sk)
 
-        return self.ec.add(c2, self.ec.neg(self.ec.add(unblind_c1)))
+        return self.ec.add(c2, self.ec.neg(unblind_c1))
