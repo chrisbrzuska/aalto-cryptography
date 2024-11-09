@@ -113,7 +113,7 @@ class ElGamal(object):
         Exercise 2:
         
         Implement the logic to randomize the generated elliptic curve points R and S,
-        so that R andS randomly modified in each decryption operation, ensuring the blinding points
+        so that R and S are randomly modified in each decryption operation, ensuring the blinding points
         vary each time.
 
         This can be implemented by, e.g., multiplying or negating the points based on the result of
@@ -202,4 +202,4 @@ class ElGamal(object):
         blind_c1 = self.blind_ciphertext(c1, R)
         unblind_c1 = self.unblind_ciphertext(blind_c1, S, sk)
 
-        return self.ec.add(c2, self.ec.neg(self.ec.add(unblind_c1)))
+        return self.ec.add(c2, self.ec.neg(unblind_c1))
