@@ -41,12 +41,9 @@ class ElGamal(object):
         TODO:
         Exercise 1:
         
-        Implement the missing method logic to properly randomize public key generation.
-        The randomization should produce an integer that is large enough; for this, utilize 
-        a random integer of at least 20 bits.
-        
-        This method should ensure that the key is securely randomized according to the
-        lecture notes.
+        If you think that key generation should use key randomization, implement 
+        the randomize_key(self, sk) procedure (further down in the code) and use the
+        randomize_key(self, sk) method here, else delete this TODO.
         """
         return self.ec.mul(self.g, sk)
 
@@ -61,6 +58,13 @@ class ElGamal(object):
         
         Returns:
         - (ciphertext1, ciphertext2) as points on ec
+
+        TODO:
+        Exercise 1:
+        
+        If you think that encryption should use key randomization, implement 
+        the randomize_key(self, sk) procedure (further down in the code) and use the
+        randomize_key(self, sk) method here, else delete this TODO.
         """
         assert self.ec.is_valid(plaintext)
         assert self.ec.is_valid(pk)
@@ -76,6 +80,12 @@ class ElGamal(object):
         
         Returns:
         - plaintext as a point on ec
+        TODO:
+        Exercise 1:
+        
+        If you think that encryption should use key randomization, implement 
+        the randomize_key(self, sk) procedure (further down in the code) and use the
+        randomize_key(self, sk) method here, else delete this TODO.
         """
         c1, c2 = ciphertext
         assert self.ec.is_valid(c1) and self.ec.is_valid(c2)
@@ -97,7 +107,7 @@ class ElGamal(object):
         Implement the method logic to properly randomize a secret key.
         
         This method should ensure that the key is securely randomized according to the
-        lecture notes.
+        lecture notes. Use at least a 20-bit integer for randomization.
         """
         pass
 

@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print("Generated plaintext:", plaintext)
     print("")
 
-    # Hard-coded secret key
+    # Hard-coded secret key (for simplicity, should be randomized in a real-life implementation, of course)
     secret_key = 94952102889125874165031048266763684604430453914299026099439664202419944786514
     print("Secret key:", secret_key)
     print("")
