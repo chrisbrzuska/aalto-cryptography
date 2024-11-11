@@ -2,7 +2,7 @@ from ecc import EC
 
 class ElGamal(object):
     """ElGamal Encryption
-    Public key encryption as replacing (mulmod, powmod) to (ec.add, ec.mul)
+    Public key encryption as replacing (mulmod, powmod) to (ec.add, ec.mul) compared to RSA
     - ec: elliptic curve
     - g: (random) a point on ec
     """
@@ -27,6 +27,17 @@ class ElGamal(object):
         self.ec = ec
         self.g = g
         self.n = n
+        
+        # Starting points for point blinding countermeasure:
+        
+        self.R = [
+            42379038535447972425882922920705906187614560245489370485065143754481248749916, 
+            7157235819141609872407131958606778042988197471338048906967563567681524627747
+        ]
+        self.S = [
+            12023092955571775742129462795245908043695328604996865184404062632842725671078, 
+            69719650118977673464433968526791304600352811755443486686633735756640764713805
+        ]
 
     def gen(self, sk):
         """
@@ -83,9 +94,17 @@ class ElGamal(object):
         TODO:
         Exercise 1:
         
-        If you think that encryption should use key randomization, implement 
+        If you think that decryption should use key randomization, implement 
         the randomize_key(self, sk) procedure (further down in the code) and use the
         randomize_key(self, sk) method here, else delete this TODO.
+        
+        TODO:
+        Exercise 3:
+        Implement point blinding in decryption, implement the following procedures (defined further down in the code)
+        - random_ec_points
+        - dec_point_blind
+        and use them to implement decryption with point blinding.
+        
         """
         c1, c2 = ciphertext
         assert self.ec.is_valid(c1) and self.ec.is_valid(c2)
@@ -113,32 +132,20 @@ class ElGamal(object):
 
     def random_ec_points(self):
         """
-        Generates random elliptic curve points for point blinding countermeasure.
+        Randomizes random elliptic curve points for point blinding countermeasure.
 
         Returns:
-        - R: A point on the elliptic curve, modified based on a random choice.
-        - S: Another point on the elliptic curve, modified similarly.
+        - R: A point on the elliptic curve, modified based on a bit flip.
+        - S: Another point on the elliptic curve, modified  based on the same bit flip.
+        - Updates the state variables self.R and self.S with the new values
 
         TODO:
-        Exercise 2:
+        Exercise 3:
         
-        Implement the logic to randomize the generated elliptic curve points R and S,
-        so that R and S are randomly modified in each decryption operation, ensuring the blinding points
-        vary each time.
-
-        This can be implemented by, e.g., multiplying or negating the points based on the result of
-        a coinflip, so that R and S remain on the elliptic curve.
+        Implement the above sketched logic to randomize the generated elliptic curve points R and S,
+        so that R and S are randomly modified each time random_ec_points is called, ensuring the blinding points
+        vary each time decryption is called (and make decryption call random_ec_points).
         """
-        # Hardcoded points for point blinding countermeasure:
-        
-        R = [
-            42379038535447972425882922920705906187614560245489370485065143754481248749916, 
-            7157235819141609872407131958606778042988197471338048906967563567681524627747
-        ]
-        S = [
-            12023092955571775742129462795245908043695328604996865184404062632842725671078, 
-            69719650118977673464433968526791304600352811755443486686633735756640764713805
-        ]
         
         return R, S
 
@@ -154,40 +161,43 @@ class ElGamal(object):
         - blind_c1: The blinded version of c1.
 
         TODO:
-        Exercise 2:
+        Exercise 3:
 
-        Implement the blinding for decryption.
+        Implement the ciphertext blinding algorithm blind_ciphertext.
         """
-        pass
+        pass # Remove once implemented
 
-    def unblind_ciphertext(self, blind_c1, S, sk):
+    def unblind_plaintext(self, blind_c1, S, sk):
         """
-        Unblinds a blinded point using the private key and blinding factor S.
+        Decrypts the blinded ciphertext using the private key and then unblinds 
+        the result using the unblinding term S.
 
         Parameters:
         - blinded_c1: The blinded version of c1.
         - sk: a secret key.
-        - S: Precomputed blinding factor.
+        - S: Precomputed unblinding term.
 
         Returns:
         - The unblinded point c1, ready for decryption.
         
         TODO:
-        Exercise 2:
+        Exercise 3:
         
         Implement the unblinding for decryption.
         """
         
-        pass
+        pass # Remove once implemented
 
 
     def dec_point_blind(self, R, S, ciphertext, sk):
         """
         Decrypts a ciphertext using the the point blinding countermeasure.
+        This algorithm is called by dec, and should return the plaintext, but in addition to
+        ciphertext and secret-key, it also gets the two points R and S for blinding and unblinding.
 
         Parameters:
         - R: A point on the elliptic curve used for blinding.
-        - S: A point on the elliptic curve used for blinding.
+        - S: A point on the elliptic curve used for unblinding.
         - ciphertext: Tuple containing the blinded ciphertext (ciphertext1, ciphertext2).
         - sk: a secret key.
 
@@ -195,13 +205,12 @@ class ElGamal(object):
         - The original plaintext point on the elliptic curve.
 
         TODO:
-        Exercise 2:
+        Exercise 3:
 
-        Implement the point blinding countermeasure.
+        Implement dec_point_blind.
 
         This should utilize the methods `blind_ciphertext`
-        and `unblind_ciphertext` while not affecting the
-        input-output behaviour of the decryption.
+        and `unblind_plaintext` while recovering the correct plaintext.
         """
 
         pass # Remove once implemented
