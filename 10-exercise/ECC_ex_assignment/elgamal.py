@@ -28,7 +28,7 @@ class ElGamal(object):
         self.g = g
         self.n = n
         
-        # Starting points for point blinding countermeasure:
+        # Starting points for point blinding countermeasure, these values are chosesn such that self.S = mul(sk,self.R)
         
         self.R = [
             42379038535447972425882922920705906187614560245489370485065143754481248749916, 
