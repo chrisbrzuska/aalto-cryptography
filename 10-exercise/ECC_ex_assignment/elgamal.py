@@ -214,11 +214,3 @@ class ElGamal(object):
         """
 
         pass # Remove once implemented
-
-        c1, c2 = ciphertext
-        assert self.ec.is_valid(c1) and self.ec.is_valid(c2)
-
-        blind_c1 = self.blind_ciphertext(c1, R)
-        unblind_c1 = self.unblind_ciphertext(blind_c1, S, sk)
-
-        return self.ec.add(c2, self.ec.neg(unblind_c1))
